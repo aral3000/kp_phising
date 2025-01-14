@@ -45,9 +45,9 @@ if choice == "Home":
 
              # Display result
             if y_pred == 1:
-            st.success(f"The website is likely safe ({safe_prob:.2f}% safe).")
+                st.success(f"The website is likely safe ({safe_prob:.2f}% safe).")
             else:
-            st.error(f"The website is likely unsafe ({phishing_prob:.2f}% unsafe).")
+                st.error(f"The website is likely unsafe ({phishing_prob:.2f}% unsafe).")
         else:
             st.warning("Please enter a URL.")
 
