@@ -30,16 +30,27 @@ if choice == "Home":
             obj = FeatureExtraction(url)
             x = np.array(obj.getFeaturesList()).reshape(1, 30)
 
+            # Predict probabilities
+            y_prob = gbc.predict_proba(x)[0]  # Returns probabilities for each class
+            y_pred = np.argmax(y_prob)  # Class with the highest probability
+            name = convertion(url, int(y_pred))
+
+            # Calculate percentages
+            safe_prob = y_prob[1] * 100  # Probability of being safe
+            phishing_prob = y_prob[0] * 100  # Probability of being phishing
+
+
             y_pred = gbc.predict(x)[0]
             name = convertion(url, int(y_pred))
 
-            # Display result
+             # Display result
             if y_pred == 1:
-                st.success(f"The website is likely safe.")
+            st.success(f"The website is likely safe ({safe_prob:.2f}% safe).")
             else:
-                st.error(f"The website is likely unsafe.")
+            st.error(f"The website is likely unsafe ({phishing_prob:.2f}% unsafe).")
         else:
             st.warning("Please enter a URL.")
+
 
 elif choice == "Use Cases":
     st.subheader("Use Cases")
